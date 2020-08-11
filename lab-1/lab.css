@@ -1,5 +1,5 @@
 body{
-    background: linear-gradient(to left top, red , orange , yellow, green, cyan, blue, violet);
+    background: linear-gradient(to left, red , orange , yellow, green, cyan, blue, violet);
 
 }
 input{
@@ -10,14 +10,13 @@ h3{
     color: tomato;
 }
 h5{
-    font-size: 1em;
     color: brown;
-    margin-top: 1em;
+    margin-top: 0.25em;
 }
 h4{
     margin-top: 1.25em;
     margin-left: .75em;
     box-shadow:8px 4px 8px violet;
-    padding: .5em .3em;
+    padding: .2em .1em;
 }
 
