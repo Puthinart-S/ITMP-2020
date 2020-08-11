@@ -14,6 +14,7 @@
 		<h3>สูตรคูณแม่ {{number}}</h3>
 		<h5>แม่ก่อนหน้า -> แม่ {{before_n}} </h5>
 		<h4 v-for="i in r">{{number}} x {{i}} = {{x(i)}}</h4>
+		<h3 class="yoboi">sum = {{sum(r)}}</h3>
 	</div>
 
 	<script>
@@ -32,6 +33,13 @@
 			methods: {
 				x : function(row){
 					return this.number*row
+				},
+				sum : function(row){
+					su = 0
+					for (let i = 0; i <= row; i++) {
+						su += this.number*i
+					}
+					return su
 				}
 			},
 			watch: {
