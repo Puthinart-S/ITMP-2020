@@ -15,6 +15,9 @@
 		<h4>EffectiveSpread : {{text_show.effectiveSpread}}</h4>
 		<h4>EffectiveQuoted : {{text_show.effectiveQuoted}}</h4>
 		<h4>PriceImprovement : {{text_show.priceImprovement}}</h4><br>
+		<button @click="isitworthit">ที่ลงทุนไปคุ้มค่าหรือไม่</button>
+		<h1>{{yesno.answer}}</h1>
+		<img :src="yesno.image" alt="">
 		<h2>Name List</h2>
 		<h5 v-for="t in text_keep" :data-id="t.volume" @click="viewBio(t)">{{t.venueName}}</h5>
 		
@@ -27,8 +30,8 @@
 	"headers": {
 		"x-rapidapi-host": "investors-exchange-iex-trading.p.rapidapi.com",
 		"x-rapidapi-key": "76d17a13aamsh37c60fa97f030acp13c793jsn35e6684cb791"
-	}
-})
+				}
+		})
 		.then(response => response.json())
 		.then(json => {
 			console.log(json)
@@ -40,9 +43,22 @@
 			methods:{
 				viewBio: function(user){
 					this.text_show = user
+				},
+				isitworthit: function(){
+					fetch('https://yesno.wtf/api')
+					.then(response => response.json())
+					.then(json => {
+						console.log(json)
+						app.yesno = json
+					})
 				}
-			} ,
+			},
 			data: {
+				yesno:{
+					"answer": "หาคำตอบกัน",
+  					"forced": false,
+  					"image": ""
+				},
 				text_show :{
 					"volume":8376,
 					"venue":"XCHI",
