@@ -1,0 +1,4 @@
+body{
+    background: linear-gradient(to top right, red , orange , yellow, green, cyan, blue, violet);
+    display: grid;
+}

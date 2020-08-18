@@ -5,22 +5,40 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<link rel="stylesheet" type="text/css" href="lab.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 </head>
 <body>
-	<div id="app">
-		<h2>Investors Exchange (IEX) Trading</h2>
-		<h4>Volume : {{text_show.volume}}</h4>
-		<h4>Venue : {{text_show.venue}} </h4>
-		<h4>VenueName : {{text_show.venueName}} </h4>
-		<h4>EffectiveSpread : {{text_show.effectiveSpread}}</h4>
-		<h4>EffectiveQuoted : {{text_show.effectiveQuoted}}</h4>
-		<h4>PriceImprovement : {{text_show.priceImprovement}}</h4><br>
-		<button @click="isitworthit">ที่ลงทุนไปคุ้มค่าหรือไม่</button>
-		<h1>{{yesno.answer}}</h1>
-		<img :src="yesno.image" alt="">
-		<h2>Name List</h2>
-		<h5 v-for="t in text_keep" :data-id="t.volume" @click="viewBio(t)">{{t.venueName}}</h5>
-		
+	<div id="app" class="tile is-ancestor">
+		<div class="tile is-vertical is-6">
+			<div class="title">
+				<div class="tile is-parent is-vertical">
+					<div class="tile is-child notification is-danger">
+						<h2 class="title">Investors Exchange (IEX) Trading</h2><br>
+						<div class="subtitle">
+							<h4>Volume : {{text_show.volume}}</h4><br>
+							<h4>Venue : {{text_show.venue}} </h4><br>
+							<h4>VenueName : {{text_show.venueName}} </h4><br>
+							<h4>EffectiveSpread : {{text_show.effectiveSpread}}</h4><br>
+							<h4>EffectiveQuoted : {{text_show.effectiveQuoted}}</h4><br>
+							<h4>PriceImprovement : {{text_show.priceImprovement}}</h4><br>
+						</div>
+					</div>
+				</div>
+				<button class="button is-primary" @click="isitworthit">ที่ลงทุนไปคุ้มค่าหรือไม่</button>
+				<div class="tile is-parent">
+					<h1 class="title">{{yesno.answer}}</h1>
+					<div class="tile is-child">
+						<img :src="yesno.image" alt="">
+					</div>
+				</div>
+			</div>	
+		</div>
+		<div class="tile is-parent">
+			<div class="tile is-child notification is-info">
+				<h2 class="title">Name List</h2><br>
+				<h5 class="subtitle" v-for="t in text_keep" :data-id="t.volume" @click="viewBio(t)">{{t.venueName}}</h5>
+			</div>
+		</div>
 	</div>
 	
 
