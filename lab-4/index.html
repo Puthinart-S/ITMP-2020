@@ -20,7 +20,7 @@
 					'--row':row,
 					'--h':h,
 					'--l':l+'%'
-				}" :data-pick="i == pick" @click="check(i)"></a-dot>
+				}" :data-pick="i == pick" @click="check(i==pick)"></a-dot>
             </main>
         </section>
         <section id="canvas_footer">
@@ -39,17 +39,40 @@
         let app = new Vue({
             el: '#canvas',
             data: {
-                row: 2, //จำนวนแถวที่จะมีในรอบนี้
-                h: 200, // hue ในรอบนี้
-                time: 20, //เวลาเริ่มต้น
+                row: rand(10, 30), //จำนวนแถวที่จะมีในรอบนี้
+                h: rand(1, 900), // hue ในรอบนี้
+                time: 15, //เวลาเริ่มต้น
                 score: 0, //คะแนนเริ่มต้น
                 pick: 1, //หมายเลขวงกลมที่จะสีแตกต่างจากก้อนอื่นๆ
-                l: 40,//ความสว่างของสีทั่วไปในรอบนี้
+                l: rand(40, 60),//ความสว่างของสีทั่วไปในรอบนี้
             },
             methods: {
-                check: function (i) {
-                    console.log(i)
+                check: function (e) {
+                    console.log(e)
+                    if (this.time >= 0) {
+                        if (e == true) {
+                            this.correct()
 
+                        } else {
+                            this.incorrect()
+                        }
+                    }
+                }
+                ,
+                correct: function () {
+                    this.row = rand(10, 30)
+                    this.pick = rand(1, this.row * this.row)
+                    this.score += 1
+                    this.time += 1
+                    this.h = rand(1, 999)
+                    this.l = rand(40, 60)
+
+                },
+                incorrect: function () {
+                    this.time -= 3
+                    this.score -= 3
+                    this.h = rand(1, 999)
+                    this.l = rand(40, 60)
                 }
             }
         })
