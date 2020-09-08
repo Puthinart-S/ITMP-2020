@@ -18,9 +18,9 @@
 		<section id="canvas_main" :data-play="play">
 			<main>
 				<div class="box _path" v-for="i in 14" :data-pst="i"></div>
-				<div class="box _toggle" data-pst="10" data-isrightarrow="1"></div>
+				<div class="box _toggle" data-pst="10" :data-isrightarrow="isRightArrow"></div>
 
-				<div class="box _fruit" v-for="f in fruits" :data-pst="f.pst"></div>
+				<div class="box _fruit" v-for="f in fruits" :data-pst="f.pst" :data-type="f.type"></div>
 
 				<div class="box _origin"></div>
 				<div class="box _12" data-pst="12"></div>
@@ -29,7 +29,7 @@
 			</main>
 		</section>
 		<section id="canvas_footer">
-			<div v-if="play" class="btn" id="toggle">
+			<div v-if="play" class="btn" id="toggle" @click="arrow_move()">
 				Toggle
 			</div>
 			<div v-if="!play" class="btn" id="endgame">
@@ -56,14 +56,21 @@
 				time: 0,
 				score: 0,
 				fruits: [
-					{ id: 1, type: 13, pst: 6, run: true, step: 1 },
+					{ id: 1, type: 13, pst: 4, run: true, step: 1 },
 					{ id: 2, type: 11, pst: 3, run: true, step: 1 },
 					{ id: 3, type: 11, pst: 2, run: true, step: 1 },
 					{ id: 4, type: 13, pst: 1, run: true, step: 1 },
 				]
 			},
 			methods: {
-
+				arrow_move: function (x) {
+					if (this.isRightArrow == 0) {
+						this.isRightArrow = 1
+					}
+					else {
+						this.isRightArrow = 0
+					}
+				}
 			},
 			computed: {
 
@@ -74,7 +81,43 @@
 					for (let f in this.fruits) {
 						let run = this.fruits[f].run
 						if (run) {
-							this.fruits[f].pst = this.fruits[f].pst + 1
+							this.fruits[f].pst = this.fruits[f].pst + this.fruits[f].step //follow toggle
+						}
+						if (this.fruits[f].pst == 10) { //toggle3/1
+							if (this.isRightArrow == 1) {
+								this.fruits[f].step = 3
+							}
+							else {
+								this.fruits[f].step = 1
+							}
+						}
+						if (this.fruits[f].pst == 12 || this.fruits[f].pst == 16) {//stop last box
+							this.fruits[f].run = false
+						}
+						if (this.fruits[f].pst == 11 || this.fruits[f].pst == 13) {//result
+							if (this.fruits[f].pst == this.fruits[f].type && this.fruits[f].run) {//+score
+								this.score++
+							}
+							else if (this.fruits[f].pst != this.fruits[f].type && this.fruits[f].run) {//-score/end
+								this.score--
+								if (this.score <= 0) {
+									this.play = false
+								}
+							}
+						}
+						if (this.play == false) {//stop when gameover
+							this.fruits[f].run = false
+						}
+						let spawn = rand(0, 1)//generate
+						if (spawn == 1 && this.fruits[f].run != false) {
+							newfruit = rand(0, 1)
+							newfruitId = 3
+							if (newfruit == 1) {
+								this.fruits.push({ id: newfruitId, type: 11, pst: 1, run: true, step: 1 })
+							} else {
+								this.fruits.push({ id: newfruitId, type: 13, pst: 1, run: true, step: 1 })
+							}
+							newfruitId++;
 						}
 					}
 				}

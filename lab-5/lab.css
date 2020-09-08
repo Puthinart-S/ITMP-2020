@@ -71,7 +71,7 @@ div.box{
 	transition: none;
 	opacity: .5;
 }
-.box._toggle[data-isrightarrow="0"]{
+.box._toggle[data-isrightarrow="1"]{
 	background-color: red;
 }
 
