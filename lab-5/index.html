@@ -63,12 +63,12 @@
 				]
 			},
 			methods: {
-				arrow_move: function (x) {
-					if (this.isRightArrow == 0) {
-						this.isRightArrow = 1
+				arrow_move: function () {
+					if (this.isRightArrow == 1) {
+						this.isRightArrow = 0
 					}
 					else {
-						this.isRightArrow = 0
+						this.isRightArrow = 1
 					}
 				}
 			},
@@ -91,6 +91,9 @@
 								this.fruits[f].step = 1
 							}
 						}
+						else{
+							this.fruits[f].step = 1
+						}
 						if (this.fruits[f].pst == 12 || this.fruits[f].pst == 16) {//stop last box
 							this.fruits[f].run = false
 						}
@@ -102,19 +105,18 @@
 								this.score--
 								if (this.score <= 0) {
 									this.play = false
+									clearInterval(playing)
 								}
 							}
-						}
-						if (this.play == false) {//stop when gameover
-							this.fruits[f].run = false
 						}
 						let spawn = rand(0, 1)//generate
 						if (spawn == 1 && this.fruits[f].run != false) {
 							newfruit = rand(0, 1)
 							newfruitId = 3
-							if (newfruit == 1) {
+							if (newfruit == 0) {
 								this.fruits.push({ id: newfruitId, type: 11, pst: 1, run: true, step: 1 })
-							} else {
+							}
+							else {
 								this.fruits.push({ id: newfruitId, type: 13, pst: 1, run: true, step: 1 })
 							}
 							newfruitId++;
