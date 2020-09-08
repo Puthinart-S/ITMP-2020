@@ -93,6 +93,10 @@
 						}
 						if (this.fruits[f].pst == 12 || this.fruits[f].pst == 16) {//stop last box
 							this.fruits[f].run = false
+							if (this.score < 1) {
+								this.play = false
+								clearInterval(playing)
+							}
 						}
 						if (this.fruits[f].pst == 11 || this.fruits[f].pst == 13) {//result
 							if (this.fruits[f].pst == this.fruits[f].type && this.fruits[f].run) {//+score
@@ -100,14 +104,10 @@
 							}
 							else if (this.fruits[f].pst != this.fruits[f].type && this.fruits[f].run) {//-score/end
 								this.score--
-								if (this.score <= 0) {
-									this.play = false
-									clearInterval(playing)
-								}
 							}
 						}
 						let spawn = rand(0, 1)//generate
-						if (spawn == 1 && this.fruits[f].run != false) {
+						if (spawn == 1 && this.play != false) {
 							newfruit = rand(0, 1)
 							newfruitId = 3
 							if (newfruit == 0) {
