@@ -91,23 +91,23 @@
 								this.fruits[f].step = 1
 							}
 						}
+						if (this.fruits[f].pst == 11 && this.fruits[f].type == 11) {
+							this.score++;
+						} else if (this.fruits[f].pst == 13 && this.fruits[f].type == 13) {
+							this.score++;
+						}
 						if (this.fruits[f].pst == 12 || this.fruits[f].pst == 16) {//stop last box
 							this.fruits[f].run = false
-							if (this.score < 1) {
-								this.play = false
-								clearInterval(playing)
-							}
 						}
-						if (this.fruits[f].pst == 11 || this.fruits[f].pst == 13) {//result
-							if (this.fruits[f].pst == this.fruits[f].type && this.fruits[f].run) {//+score
-								this.score++
-							}
-							else if (this.fruits[f].pst != this.fruits[f].type && this.fruits[f].run) {//-score/end
-								this.score--
-							}
+						if (this.fruits[f].pst == 11 && this.fruits[f].type == 13) {
+							clearInterval(playing)
+							this.play = false
+						} else if (this.fruits[f].pst == 13 && this.fruits[f].type == 11) {
+							clearInterval(playing)
+							this.play = false
 						}
 						let spawn = rand(0, 1)//generate
-						if (spawn == 1 && this.play != false) {
+						if (spawn == 1) {
 							newfruit = rand(0, 1)
 							newfruitId = 3
 							if (newfruit == 0) {
